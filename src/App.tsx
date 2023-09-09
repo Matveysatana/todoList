@@ -12,6 +12,8 @@ function App() {
     { id: 2, title: 'JS', isDane: true },
     { id: 3, title: 'React', isDane: false },
     { id: 4, title: 'Redux', isDane: false },
+    { id: 5, title: 'GitHub', isDane: true },
+    { id: 6, title: 'School', isDane: false },
   ]);
   let [filter, setFilter] = useState<FilterValuesType>('all')
 
