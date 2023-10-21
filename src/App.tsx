@@ -1,26 +1,42 @@
 import React, { useState } from 'react';
 import './App.css';
-import { TaskType, Todolist } from './Todolist';
+import {  Todolist } from './Todolist';
+import { v1 } from 'uuid';
+
+
 
 export type FilterValuesType = 'all'| 'completed' | 'active';
 
 function App() {
 
+  
+   let [tasks, setTasks] = useState ([
 
-   let [tasks, setTasks] = useState< Array<TaskType> > ([
-    { id: 1, title: 'CSS&HNML', isDane: true },
-    { id: 2, title: 'JS', isDane: true },
-    { id: 3, title: 'React', isDane: false },
-    { id: 4, title: 'Redux', isDane: false },
-    { id: 5, title: 'GitHub', isDane: true },
-    { id: 6, title: 'School', isDane: false },
+    { id: v1(), title: 'CSS&HNML', isDane: true },
+    { id: v1(), title: 'JS', isDane: true },
+    { id: v1(), title: 'React', isDane: false },
+    { id: v1(), title: 'Redux', isDane: false },
+    { id: v1(), title: 'GitHub', isDane: true },
+    { id: v1(), title: 'School', isDane: false },
   ]);
-  let [filter, setFilter] = useState<FilterValuesType>('all')
 
-  function removeTask(id: number) {
+  function removeTask(id: string) {
     let filderedTask = tasks.filter(t =>  t.id !== id )
     setTasks(filderedTask);
   }
+
+  function AddTask(title: string) {
+    let newTask = {
+      id: v1(), 
+      title: title,
+      isDane: false
+    };
+    let nevTasks = [newTask, ...tasks];
+    setTasks(nevTasks)
+  }
+
+
+  let [filter, setFilter] = useState<FilterValuesType>('all')
 
   function changeFilter(value: FilterValuesType) {
     setFilter(value);
@@ -35,14 +51,13 @@ function App() {
     taskForTodolist = tasks.filter(t => t.isDane === false);
   }
 
-
-
   return (
     <div className="App">
       <Todolist title='WHAT TO LEARN'
                 tasks={taskForTodolist} 
                 removeTask={removeTask}
-                changeFilter={changeFilter} />
+                changeFilter={changeFilter}
+                AddTask={AddTask} />
     </div>
   );
 };
